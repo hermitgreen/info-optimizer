@@ -1,10 +1,11 @@
 from main.exts import db
 
 
-#懒加载db
+# 懒加载db
 def init_model(app):
     db.init_app(app=app)
-    db.create_all()
+    db.create_all(app=app)
+
 
 # 用户类
 # name用户名 openid用户识别码 group用户组 name用户名 birthday生日

@@ -4,8 +4,10 @@ import requests
 from sqlalchemy import extract, and_
 from flask import jsonify, request, render_template, Blueprint
 
+
 # 蓝图加载视图函数
 blue = Blueprint('blue', __name__)
+
 
 # hello world
 @blue.route('/')

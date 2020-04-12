@@ -77,6 +77,7 @@ def resolve_time(start, ks, data):
     c5 = time(17, 10, 0)
     c6 = time(19, 30, 0)
     c7 = time(21, 5, 0)
+
     for i in ks:
         index = int((i.time-start).days)
         local_time = time(i.time.hour, i.time.minute, i.time.second)
