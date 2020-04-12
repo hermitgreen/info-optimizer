@@ -1,19 +1,20 @@
-from app import app
-from app.methods import *
+from main.methods import *
 import os
 import requests
 from sqlalchemy import extract, and_
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, Blueprint
 
+# 蓝图加载视图函数
+blue = Blueprint('blue', __name__)
 
 # hello world
-@app.route('/')
+@blue.route('/')
 def hello_world():
     return render_template('index.html')
 
 
 # 删除成绩
-@app.route('/delete_grade', methods=['POST'])
+@blue.route('/delete_grade', methods=['POST'])
 def delete_grade():
     data = get_data()
     openid = data.get('openid')
@@ -25,7 +26,7 @@ def delete_grade():
 
 
 # 删除活动
-@app.route('/delete_active', methods=['POST'])
+@blue.route('/delete_active', methods=['POST'])
 def delete_active():
     data = get_data()
     openid = data.get('openid')
@@ -38,7 +39,7 @@ def delete_active():
 
 
 # 删除投票
-@app.route('/delete_vote', methods=['POST'])
+@blue.route('/delete_vote', methods=['POST'])
 def delete_vote():
     data = get_data()
     openid = data.get('openid')
@@ -51,7 +52,7 @@ def delete_vote():
 
 
 # 删除个人日程
-@app.route('/delete_schedule', methods=['POST'])
+@blue.route('/delete_schedule', methods=['POST'])
 def delete_schedule():
     data = get_data()
     openid = data.get('openid')
@@ -62,7 +63,7 @@ def delete_schedule():
 
 
 # 删除班级日程
-@app.route('/delete_class_schedule', methods=['POST'])
+@blue.route('/delete_class_schedule', methods=['POST'])
 def delete_class_schedule():
     data = get_data()
     openid = data.get('openid')
@@ -75,7 +76,7 @@ def delete_class_schedule():
 
 
 # 获取时间热力表
-@app.route('/get_free_time', methods=['POST'])
+@blue.route('/get_free_time', methods=['POST'])
 def get_free_time():
     data = get_data()
     openid = data.get('openid')
@@ -122,7 +123,7 @@ def get_free_time():
 
 
 # 创建日程
-@app.route('/create_schedule', methods=['POST'])
+@blue.route('/create_schedule', methods=['POST'])
 def create_schedule():
     data = get_data()
     openid = data.get('openid')
@@ -135,7 +136,7 @@ def create_schedule():
 
 
 # 创建班级日程
-@app.route('/create_class_schedule', methods=['POST'])
+@blue.route('/create_class_schedule', methods=['POST'])
 def create_class_schedule():
     data = get_data()
     openid = data.get('openid')
@@ -148,7 +149,7 @@ def create_class_schedule():
 
 
 # 更新用户信息 每次更新传name的时候要同步更新User表中的name,即键为字符串name,name这个值存两份
-@app.route('/update_user_info', methods=['POST'])
+@blue.route('/update_user_info', methods=['POST'])
 def update_user_info():
     data = get_data()
     openid = data.get('openid')
@@ -179,7 +180,7 @@ def update_user_info():
 
 
 # 回传用户信息
-@app.route('/search_user_info', methods=['POST'])
+@blue.route('/search_user_info', methods=['POST'])
 def search_user_info():
     data = get_data()
     openid = data.get('openid')
@@ -198,7 +199,7 @@ def search_user_info():
 
 
 # 查询成绩
-@app.route('/search_grade', methods=['POST', 'GET'])
+@blue.route('/search_grade', methods=['POST', 'GET'])
 def search_grade():
     data = get_data()
     openid = data.get('openid')
@@ -218,7 +219,7 @@ def search_grade():
 
 
 # 回传班级所有人的成绩
-@app.route('/search_class_grade', methods=['POST'])
+@blue.route('/search_class_grade', methods=['POST'])
 def search_class_grade():
     data = get_data()
     openid = data.get('openid')
@@ -232,7 +233,7 @@ def search_class_grade():
 
 
 # 回传数据分析结果
-@app.route('/search_grade_analyse', methods=['POST'])
+@blue.route('/search_grade_analyse', methods=['POST'])
 def search_grade_analyse():
     data = get_data()
     openid = data.get('openid')
@@ -256,7 +257,7 @@ def search_grade_analyse():
 
 
 # 更新成绩
-@app.route('/update_grade', methods=['POST'])
+@blue.route('/update_grade', methods=['POST'])
 def update_grade():
     data = get_data()
     openid = data.get('openid')
@@ -286,7 +287,7 @@ def update_grade():
 
 
 # 找参与过的所有东西
-@app.route('/search_participate', methods=['POST'])
+@blue.route('/search_participate', methods=['POST'])
 def search_participate():
     data = get_data()
     openid = data.get('openid')
@@ -319,7 +320,7 @@ def search_participate():
 
 
 # 创建投票
-@app.route('/create_vote', methods=['POST'])
+@blue.route('/create_vote', methods=['POST'])
 def create_vote():
     data = get_data()
     text = data.get('text')
@@ -344,7 +345,7 @@ def create_vote():
 
 
 # 投票
-@app.route('/vote', methods=['POST'])
+@blue.route('/vote', methods=['POST'])
 def vote():
     data = get_data()
     print('-----------')
@@ -371,7 +372,7 @@ def vote():
 
 
 # 回传投票结果
-@app.route('/search_vote_result', methods=['POST'])
+@blue.route('/search_vote_result', methods=['POST'])
 def search_vote_result():
     data = get_data()
     text = data.get('text')
@@ -402,7 +403,7 @@ def search_vote_result():
 
 
 # 返回班级成员
-@app.route('/search_class_member', methods=['POST'])
+@blue.route('/search_class_member', methods=['POST'])
 def search_class_member():
     data = get_data()
     openid = data.get('openid')
@@ -427,7 +428,7 @@ def search_class_member():
 
 
 # 填表
-@app.route('/receive_excel_file', methods=['POST'])
+@blue.route('/receive_excel_file', methods=['POST'])
 def receive_excel_file():
     openid = request.values.to_dict().get('openid')
     group = get_group_by_openid(openid)
@@ -440,7 +441,7 @@ def receive_excel_file():
 
 
 # 按用户组列出所有活动
-@app.route('/search_active_by_group', methods=['POST'])
+@blue.route('/search_active_by_group', methods=['POST'])
 def search_active_by_group():
     data = get_data()
     openid = data.get('openid')
@@ -462,7 +463,7 @@ def search_active_by_group():
 
 
 # 发布动态
-@app.route('/release_active', methods=['POST'])
+@blue.route('/release_active', methods=['POST'])
 def release_active():
     data = get_data()
     openid = data.get('openid')
@@ -489,7 +490,7 @@ def release_active():
 
 
 # 按日期列出所有活动
-@app.route('/search_active_by_date', methods=['POST'])
+@blue.route('/search_active_by_date', methods=['POST'])
 def search_active_by_date():
     data = get_data()
     openid = data.get('openid')
@@ -553,7 +554,7 @@ def search_active_by_date():
 
 
 # 接收用户code,返回用户实例,如果没有,调用api获取openid并且创建用户
-@app.route('/login', methods=['POST'])
+@blue.route('/login', methods=['POST'])
 def login():
     data = get_data()
     code = data.get('code')
@@ -573,7 +574,7 @@ def login():
 
 
 # 创建班级
-@app.route('/create_class', methods=['POST'])
+@blue.route('/create_class', methods=['POST'])
 def create_class():
     data = get_data()
     name = data.get('name')
@@ -598,7 +599,7 @@ def create_class():
 
 
 # 搜索班级
-@app.route('/search_class', methods=['POST'])
+@blue.route('/search_class', methods=['POST'])
 def search_class():
     data = get_data()
     key = data.get('keyword')
@@ -614,7 +615,7 @@ def search_class():
 
 
 # 加入班级
-@app.route('/add_class', methods=['POST'])
+@blue.route('/add_class', methods=['POST'])
 def add_class():
     data = get_data()
     name = data.get('name')
@@ -631,7 +632,7 @@ def add_class():
 
 # 初始化数据库,删除所有表并重新生成
 # 当修改了数据库以后需要调用init
-@app.route('/init')
+@blue.route('/init')
 def init():
     db.drop_all()
     db.create_all()
