@@ -1,6 +1,6 @@
 from flask import request, json
 from datetime import *
-from app.models import *
+from main.models import *
 
 
 # 自定义的一些方法
