@@ -633,8 +633,8 @@ def add_class():
 
 
 # 初始化数据库,删除所有表并重新生成
-# 当修改了数据库以后需要调用init
-@blue.route('/init')
+# 仅测试环境可用
+# @blue.route('/init')
 def init():
     db.drop_all()
     db.create_all()
