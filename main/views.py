@@ -15,6 +15,11 @@ def hello_world():
     return render_template('index.html')
 
 
+@blue.route('/users')
+def users():
+    s = "users:[{'id': '1', 'name': 'Rocky', 'age': '38'},{'id': '2', 'name': 'Steve', 'age': '50'},{'id': '3', 'name': 'Melinda', 'age': '38'},]"
+    return jsonify(s)
+
 # 删除成绩
 @blue.route('/delete_grade', methods=['POST'])
 def delete_grade():
