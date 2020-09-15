@@ -1,3 +1,3 @@
-# Class_Info_Manager
+# class-info-manager
 
 2019 SRTP back-end code
